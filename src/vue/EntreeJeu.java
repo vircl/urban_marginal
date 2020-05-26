@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controleur.Controle;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -28,6 +31,7 @@ public class EntreeJeu extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtIp;
+	private Controle controle;
 
 	/**
 	 * Clic sur le bouton start pour lancer le serveur
@@ -35,9 +39,11 @@ public class EntreeJeu extends JFrame {
 	 */
 	private void btnStart_clic() {
 		System.out.println("Clic sur le bouton start");
+		this.controle.evenementVue(this, "serveur");
 	}
 	private void btnConnect_clic() {
 		System.out.println("Clic sur le bouton connect");
+		this.controle.evenementVue(this, this.txtIp.getText());
 	}
 	/**
 	 * Clic sur le bouton exit : fermeture de la frame
@@ -49,9 +55,11 @@ public class EntreeJeu extends JFrame {
 	}
 	
 	/**
-	 * Génération de la frame
+	 * Controleur
+	 * Permet la génération de la frame
+	 * @param Controle controle Instance du contrôleur
 	 */
-	public EntreeJeu() {
+	public EntreeJeu(Controle controle) {
 		setTitle("Urban Marginal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 436, 180);
@@ -107,5 +115,7 @@ public class EntreeJeu extends JFrame {
 		});
 		btnExit.setBounds(282, 107, 117, 23);
 		contentPane.add(btnExit);
+		
+		this.controle = controle;
 	}
 }
