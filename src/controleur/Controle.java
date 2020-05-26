@@ -2,8 +2,13 @@ package controleur;
 
 import javax.swing.JFrame;
 
+import modele.Jeu;
+import modele.JeuClient;
+import modele.JeuServeur;
 import outils.connexion.ClientSocket;
 import outils.connexion.ServeurSocket;
+import vue.Arene;
+import vue.ChoixJoueur;
 import vue.EntreeJeu;
 
 /**
@@ -20,6 +25,9 @@ import vue.EntreeJeu;
 public class Controle {
 
 	private EntreeJeu frmEntreeJeu;
+	private Jeu leJeu;
+	private Arene frmArene;
+	private ChoixJoueur frmChoixJoueur;
 	
 	/**
 	 * Constructeur
@@ -66,9 +74,19 @@ public class Controle {
 		System.out.println("Entrée jeu : " + (String) info );
 		if ( ((String) info).equals("serveur") ) {
 			new ServeurSocket(this, 6666);
+			this.leJeu    = new JeuServeur(this);
+			this.frmArene = new Arene();
+			this.frmEntreeJeu.dispose();
+			this.frmArene.setVisible(true);
+			
 		} else {
 			if ((new ClientSocket((String) info, 6666, this)).isConnexionOK()) {
-				// TODO
+				this.leJeu          = new JeuClient(this);
+				this.frmArene       = new Arene();
+				this.frmChoixJoueur = new ChoixJoueur();
+				this.frmEntreeJeu.dispose();
+				this.frmChoixJoueur.setVisible(true);
+				//this.frmArene.setVisible(true);
 			}
 		}
 	}
