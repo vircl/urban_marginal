@@ -21,10 +21,10 @@ import java.awt.event.MouseEvent;
  * Cette classe génère une frame permettant au joueur de démarrer un nouveau serveur
  * ou de rejoindre un serveur existant
  * 
- * @package Urban Marginal
- * @subpackage vue
+ * @project Urban Marginal
+ * @pacakge vue
  * @version 1.0
- * @author Virginie
+ * @author  Virginie
  *
  */
 public class EntreeJeu extends JFrame {

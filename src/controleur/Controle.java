@@ -2,6 +2,8 @@ package controleur;
 
 import javax.swing.JFrame;
 
+import outils.connexion.ClientSocket;
+import outils.connexion.ServeurSocket;
 import vue.EntreeJeu;
 
 /**
@@ -9,10 +11,10 @@ import vue.EntreeJeu;
  * 
  * Gère les événements provenant du modèle et de la vue
  * 
- * @package Urban Marginal
- * @subpackage controleur
+ * @project Urban Marginal
+ * @package controleur
  * @version 1.0
- * @author Virginie
+ * @author  Virginie
  *
  */
 public class Controle {
@@ -62,5 +64,12 @@ public class Controle {
 	 */
 	public void evenementEntreeJeu(Object info) {
 		System.out.println("Entrée jeu : " + (String) info );
+		if ( ((String) info).equals("serveur") ) {
+			new ServeurSocket(this, 6666);
+		} else {
+			if ((new ClientSocket((String) info, 6666, this)).isConnexionOK()) {
+				// TODO
+			}
+		}
 	}
 }
