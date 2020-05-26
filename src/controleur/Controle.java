@@ -22,7 +22,7 @@ import vue.EntreeJeu;
  * @author  Virginie
  *
  */
-public class Controle {
+public class Controle implements Global {
 
 	private EntreeJeu frmEntreeJeu;
 	private Jeu leJeu;
@@ -73,14 +73,14 @@ public class Controle {
 	public void evenementEntreeJeu(Object info) {
 		System.out.println("Entrée jeu : " + (String) info );
 		if ( ((String) info).equals("serveur") ) {
-			new ServeurSocket(this, 6666);
+			new ServeurSocket(this, PORT);
 			this.leJeu    = new JeuServeur(this);
 			this.frmArene = new Arene();
 			this.frmEntreeJeu.dispose();
 			this.frmArene.setVisible(true);
 			
 		} else {
-			if ((new ClientSocket((String) info, 6666, this)).isConnexionOK()) {
+			if ((new ClientSocket((String) info, PORT, this)).isConnexionOK()) {
 				this.leJeu          = new JeuClient(this);
 				this.frmArene       = new Arene();
 				this.frmChoixJoueur = new ChoixJoueur();

@@ -8,6 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controleur.Global;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
@@ -24,7 +27,7 @@ import javax.swing.JTextField;
  * @author  Virginie
  *
  */
-public class ChoixJoueur extends JFrame {
+public class ChoixJoueur extends JFrame implements Global {
 
 	private JPanel contentPane;
 	private JTextField txtPseudo;
@@ -104,7 +107,7 @@ public class ChoixJoueur extends JFrame {
 		JLabel lblFond = new JLabel("");
 		lblFond.setVerticalAlignment(SwingConstants.TOP);
 		lblFond.setBounds(0, 0, 423, 296);
-		lblFond.setIcon(new ImageIcon("media/fonds/fondchoix.jpg"));
+		lblFond.setIcon(new ImageIcon(FOND_CHOIX));
 		contentPane.add(lblFond);
 		txtPseudo.requestFocus();
 	}
