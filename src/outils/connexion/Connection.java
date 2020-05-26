@@ -70,4 +70,17 @@ public class Connection extends Thread {
 			}
 		}
 	}
+	/**
+	 * Envoi des données au serveur
+	 * 
+	 * @return void
+	 */
+	public void envoi(Object unObjet) {
+		try {
+			this.out.writeObject(unObjet);
+			this.out.flush();
+		} catch (IOException e) {
+			System.out.println("*** WARNING *** Erreur sur l'objet out " + e );
+		}
+	}
 }
