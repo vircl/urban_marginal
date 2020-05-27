@@ -15,31 +15,38 @@ import outils.connexion.Connection;
  */
 public class JeuClient extends Jeu {
 
+	private Connection connection;
+	
+	/**
+	 * Constructeur
+	 * @param controle Instance du controleur
+	 */
+	public JeuClient( Controle controle ) {
+		super.controle = controle;
+	}
+	
 	@Override
-	public void setConnection(Connection connection) {
-		// TODO Auto-generated method stub
-		
+	public void setConnection( Connection connection ) {
+		this.connection = connection;
 	}
 
 	@Override
-	public void reception(Connection connection, Object info) {
-		// TODO Auto-generated method stub
-		
+	public void reception( Connection connection, Object info ) {
+		System.out.println( "Reception JeuClient : " + ( String ) info );
 	}
 
 	@Override
-	public void deconnection(Connection connection) {
+	public void deconnection( Connection connection ) {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	/**
-	 * Constructeur
-	 * 
-	 * @param  Controle controle Instance du controleur
+	 * Envoi des infos au serveur
+	 * @param info Informations à envoyer
 	 */
-	public JeuClient(Controle controle) {
-		super.controle = controle;
+	public void envoi( Object info ) {
+		super.envoi( connection, info );
 	}
 
 }

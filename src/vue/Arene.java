@@ -25,17 +25,18 @@ public class Arene extends JFrame {
 
 	/**
 	 * Constructeur
-	 * 
-	 * Création de la frame
 	 */
 	public Arene() {
-		setTitle("Arena");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		/**
+		 * Initialisation de la frame
+		 */
+		setTitle( "Arena" );
+		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		setBounds( 100, 100, 450, 300 );
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
+		setContentPane( contentPane );
+		contentPane.setLayout( null );
 	}
 
 }

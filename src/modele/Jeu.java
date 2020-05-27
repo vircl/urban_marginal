@@ -18,33 +18,30 @@ public abstract class Jeu {
 	protected Controle controle;
 	
 	/**
-	 * Connexion au serveur
-	 * 
-	 * @param Object connection Objet de connexion au serveur
+	 * Réception d'une connexion
+	 * @param connection Objet de connexion au serveur
 	 */
-	public abstract void setConnection(Connection connection);	
+	public abstract void setConnection( Connection connection );	
 	
 	/**
 	 * Reception des messages provenant de l'ordinateur distant
-	 * 
-	 * @param Connection connection Emetteur du message
-	 * @param Object     info       Message envoyé par l'ordinateur distant
+	 * @param connection Emetteur du message
+	 * @param info       Message envoyé par l'ordinateur distant
 	 */
-	public abstract void reception(Connection connection, Object info);	
+	public abstract void reception( Connection connection, Object info );	
 	
 	/**
 	 * Envoi des informations à/aux ordinateur(s) distant(s)
-	 * 
-	 * @param Connection connection Emetteur du message
-	 * @param Object     info       Message envoyé par l'ordinateur distant
+	 * @param connection Emetteur du message
+	 * @param info       Message envoyé par l'ordinateur distant
 	 */
-	public void envoi(Connection connection, Object info) {
-		connection.envoi(info);
+	public void envoi( Connection connection, Object info ) {
+		connection.envoi( info );
 	}
+	
 	/**
 	 * Gestion de la déconnexion de l'ordinateur distant
-	 * 
-	 * @param Connection connection : Objet de connexion au serveur
+	 * @param connection : Objet de connexion au serveur
 	 */
-	public abstract void deconnection(Connection connection);
+	public abstract void deconnection( Connection connection );
 }

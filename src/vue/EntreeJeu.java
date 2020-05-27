@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controleur.Controle;
+import controleur.Global;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -27,95 +28,127 @@ import java.awt.event.MouseEvent;
  * @author  Virginie
  *
  */
-public class EntreeJeu extends JFrame {
+public class EntreeJeu extends JFrame implements Global {
 
-	private JPanel contentPane;
+	private JPanel     contentPane;
 	private JTextField txtIp;
-	private Controle controle;
+	private Controle   controle;
 
-	/**
-	 * Clic sur le bouton start pour lancer le serveur
-	 * @return void
-	 */
-	private void btnStart_clic() {
-		System.out.println("Clic sur le bouton start");
-		this.controle.evenementVue(this, "serveur");
-	}
-	private void btnConnect_clic() {
-		System.out.println("Clic sur le bouton connect");
-		this.controle.evenementVue(this, this.txtIp.getText());
-	}
-	/**
-	 * Clic sur le bouton exit : fermeture de la frame
-	 * @return void
-	 */
-	private void btnExit_clic() {
-		System.out.println("Clic sur le bouton exit");
-		System.exit(0);
-	}
 	
 	/**
-	 * Controleur
-	 * Permet la génération de la frame
-	 * @param Controle controle Instance du contrôleur
+	 * Constructeur
+	 * 
+	 * @param controle Instance du contrôleur
 	 */
 	public EntreeJeu(Controle controle) {
-		setTitle("Urban Marginal");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 436, 180);
+		/**
+		 * Initialisation de la frame
+		 */
+		setTitle( "Urban Marginal" );
+		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		setBounds( 100, 100, 436, 180 );
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
+		setContentPane( contentPane );
+		contentPane.setLayout( null );
 		
-		JLabel lblConnect = new JLabel("Se connecter \u00E0 un serveur existant");
-		lblConnect.setBounds(10, 49, 262, 14);
-		contentPane.add(lblConnect);
+		/**
+		 * Label Connecter serveur
+		 */
+		JLabel lblConnect = new JLabel( "Se connecter \u00E0 un serveur existant" );
+		lblConnect.setBounds( 10, 49, 262, 14 );
+		contentPane.add( lblConnect );
 		
-		JLabel lblStart = new JLabel("D\u00E9marrer un nouveau serveur");
-		lblStart.setBounds(10, 24, 262, 14);
-		contentPane.add(lblStart);
 		
+		/**
+		 * Label Démarrer serveur
+		 */
+		JLabel lblStart = new JLabel( "D\u00E9marrer un nouveau serveur" );
+		lblStart.setBounds( 10, 24, 262, 14 );
+		contentPane.add( lblStart );
+		
+		/**
+		 * Label IP serveur
+		 */
 		JLabel lblIp = new JLabel("IP du serveur :");
 		lblIp.setBounds(10, 74, 97, 20);
 		contentPane.add(lblIp);
 		
+		/**
+		 * Zone de texte IP serveur
+		 */
 		txtIp = new JTextField();
-		txtIp.setText("127.0.0.1");
-		txtIp.setBounds(117, 74, 155, 20);
-		contentPane.add(txtIp);
-		txtIp.setColumns(10);
+		txtIp.setText( DEFAULT_IP );
+		txtIp.setBounds( 117, 74, 155, 20 );
+		contentPane.add( txtIp );
+		txtIp.setColumns( 10 );
 		
-		JButton btnStart = new JButton("D\u00E9marrer");
-		btnStart.addMouseListener(new MouseAdapter() {
+		/**
+		 * Bouton démarrer
+		 */
+		JButton btnStart = new JButton( "D\u00E9marrer" );
+		btnStart.addMouseListener( new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked( MouseEvent arg0 ) {
 				btnStart_clic();
 			}
 		});
 		btnStart.setBounds(282, 20, 117, 23);
 		contentPane.add(btnStart);
 		
-		JButton btnConnect = new JButton("Connecter");
-		btnConnect.addMouseListener(new MouseAdapter() {
+		/**
+		 * Bouton connecter
+		 */
+		JButton btnConnect = new JButton( "Connecter" );
+		btnConnect.addMouseListener( new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked( MouseEvent e ) {
 				btnConnect_clic();
 			}
 		});
-		btnConnect.setBounds(282, 73, 117, 23);
-		contentPane.add(btnConnect);
+		btnConnect.setBounds( 282, 73, 117, 23 );
+		contentPane.add( btnConnect );
 		
-		JButton btnExit = new JButton("Quitter");
-		btnExit.addMouseListener(new MouseAdapter() {
+		/**
+		 * Bouton sortir
+		 */
+		JButton btnExit = new JButton( "Quitter" );
+		btnExit.addMouseListener( new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked( MouseEvent e ) {
 				btnExit_clic();
 			}
 		});
-		btnExit.setBounds(282, 107, 117, 23);
-		contentPane.add(btnExit);
+		btnExit.setBounds( 282, 107, 117, 23 );
+		contentPane.add( btnExit );
 		
+		/**
+		 * Initialisation du contrôleur
+		 */
 		this.controle = controle;
+	}
+	
+	/**
+	 * Clic sur le bouton start pour lancer le serveur
+	 */
+	private void btnStart_clic() {
+		System.out.println( "Clic sur le bouton start" );
+		this.controle.evenementVue( this, "serveur" );
+	}
+	
+	/**
+	 * Clic sur le bouton connecter pour rejoindre un serveur
+	 */
+	private void btnConnect_clic() {
+		System.out.println( "Clic sur le bouton connect" );
+		this.controle.evenementVue( this, this.txtIp.getText() );
+	}
+	
+	/**
+	 * Clic sur le bouton exit : fermeture de la frame
+	 */
+	private void btnExit_clic() {
+		System.out.println( "Clic sur le bouton exit" );
+		System.exit(0);
 	}
 }
