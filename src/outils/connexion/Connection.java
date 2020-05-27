@@ -59,7 +59,6 @@ public class Connection extends Thread {
 		while ( inOk ) {
 			try {
 				reception = in.readObject();
-				System.out.println("vous etes ici");
 				( ( controleur.Controle ) this.leRecepteur ).receptionInfo( this, reception );
 			} catch ( ClassNotFoundException e ) {
 				System.out.println( "*** ERREUR *** Erreur lors de l'initialisation de la méthode readObject (classe introuvable) " + e );

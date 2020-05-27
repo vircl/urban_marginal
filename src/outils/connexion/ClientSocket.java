@@ -31,7 +31,6 @@ public class ClientSocket {
 		setConnexionOK( false );
 		try {
 			Socket socket = new Socket( ip, port );
-			System.out.println( " Connexion au serveur réussie" );
 			this.setConnexionOK( true );
 			new Connection( socket, leRecepteur );
 		} catch ( UnknownHostException e ) {

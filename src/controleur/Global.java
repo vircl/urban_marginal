@@ -40,6 +40,25 @@ public interface Global {
 	public static final int    L_PERSO    = 39;
 	
 	/**
+	 * Arene
+	 */
+	public static final int    H_ARENE    = 600;
+	public static final int    L_ARENE    = 800;
+	public static final int    H_CHAT     = 200;
+	public static final int    H_SAISIE   = 25;
+	public static final int    MARGE      = 5;
+	public static final String FOND_ARENE = FONDS + "fondarene.jpg";
+	
+	/**
+	 * Murs
+	 */
+	public static final int    NB_MURS    = 20;
+	public static final String MURS       = CHEMIN + "murs" + SEPARATOR;
+	public static final String MUR        = MURS + "mur.gif";
+	public static final int    H_MUR      = 35;
+	public static final int    L_MUR      = 34;
+	
+	/**
 	 * Messages
 	 */
 	public static final String SEPARE     = "¤";

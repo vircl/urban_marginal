@@ -1,6 +1,10 @@
 package modele;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+
 import controleur.Controle;
+import controleur.Global;
 import outils.connexion.Connection;
 
 /**
@@ -13,33 +17,45 @@ import outils.connexion.Connection;
  * @version 1.0
  * @author  Virginie
  */
-public class JeuServeur extends Jeu {
+public class JeuServeur extends Jeu implements Global {
 
+	private ArrayList<Mur> lesMurs                  = new ArrayList<Mur>();
+	private Hashtable<Connection,Joueur> lesJoueurs = new Hashtable<Connection, Joueur>();
+	
 	/**
 	 * Constructeur
 	 * @param controle Instance du controleur
 	 */
 	public JeuServeur( Controle controle ) {
 		super.controle = controle;
-		System.out.println("JeuServeur ok");
+		Label.setNbLabel(0);
 	}
 	
 	@Override
 	public void setConnection( Connection connection ) {
-		// TODO Auto-generated method stub
-		
+		this.lesJoueurs.put( connection, new Joueur() );
+		controle.evenementModele(this, "envoi panel murs", connection );
 	}
 
 	@Override
 	public void reception( Connection connection, Object info ) {
 		// TODO Auto-generated method stub
-		System.out.println( "Reception JeuServeur : " + ( String ) info );
 	}
 
 	@Override
 	public void deconnection( Connection connection ) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**
+	 * Génération des murs
+	 */
+	public void constructionMurs() {
+		for ( int i = 0; i < NB_MURS; i++ ) {
+			this.lesMurs.add(new Mur() );
+			controle.evenementModele( this, "ajout mur", this.lesMurs.get( lesMurs.size() - 1 ).getLabel().getjLabel() );
+		}
 	}
 	
 }
