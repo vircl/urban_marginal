@@ -58,6 +58,8 @@ public class JeuServeur extends Jeu implements Global {
 			laPhrase = this.lesJoueurs.get( connection ).getPseudo() + " > " + ( (String) infos[1] );
 			controle.evenementModele( this, "ajout tchat", laPhrase );
 			break;
+		case ACTION :
+			this.lesJoueurs.get( connection ).action( Integer.parseInt( infos[1] ), this.lesJoueurs, this.lesMurs );
 		}
 	}
 

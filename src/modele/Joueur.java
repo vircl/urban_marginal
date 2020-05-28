@@ -137,4 +137,55 @@ public class Joueur extends Objet implements Global {
 		this.jeuServeur.envoi( super.label );
 		this.jeuServeur.envoi( this.message );
 	}
+	
+	/**
+	 * Gestion du déplacement du joueur
+	 * @param action
+	 * @param position
+	 * @param orientation
+	 * @param pas
+	 * @param max
+	 * @param lesJoueurs
+	 * @param lesMurs
+	 * @return
+	 */
+	private int deplace( int action, int position, int orientation, int pas, int max, Hashtable<Connection,Joueur> lesJoueurs, ArrayList<Mur> lesMurs ) {
+		this.orientation = orientation;
+		int positionInitiale = position;
+		position += pas;
+		position = position < 0 ? 0 : position > max ? max : position;
+		this.posx = action == GAUCHE || action == DROITE ? position : this.posx;
+		this.posy = action == HAUT || action == BAS ? position : this.posy;
+		if ( this.toucheJoueur( lesJoueurs ) || this.toucheMur( lesMurs ) ) {
+			position = positionInitiale;
+		}
+		etape = ( etape % NB_ETAPES ) + 1 ;
+		return position;
+	}
+	
+	/**
+	 * Repositionne le joueur sur l'arène
+	 * @param action
+	 * @param lesJoueurs
+	 * @param lesMurs
+	 */
+	public void action( int action, Hashtable<Connection,Joueur> lesJoueurs, ArrayList<Mur> lesMurs ) {
+		switch ( action ) {
+		case GAUCHE :
+			this.posx = deplace( action, this.posx, GAUCHE, -PAS, L_ARENE - L_PERSO, lesJoueurs, lesMurs );
+			break;
+		case DROITE :
+			this.posx = deplace( action, this.posx, DROITE, PAS, L_ARENE - L_PERSO, lesJoueurs, lesMurs );
+			break;
+		case HAUT :
+			this.posy = deplace( action, this.posy, orientation, -PAS, H_ARENE - H_PERSO - H_MESSAGE, lesJoueurs, lesMurs );
+			break;
+		case BAS :
+			this.posy = deplace( action, this.posy, orientation, PAS, H_ARENE - H_PERSO - H_MESSAGE, lesJoueurs, lesMurs );
+			break;
+		case TIRE :
+			break;
+		}
+		affiche( MARCHE, etape );
+	}
 }

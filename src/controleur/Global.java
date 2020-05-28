@@ -22,6 +22,7 @@ public interface Global {
 	public static final String SEPARE     = "¤";
 	public static final int    PSEUDO     = 0;
 	public static final int    TCHAT      = 1;
+	public static final int    ACTION     = 2;
 	
 	
 	/**
@@ -40,6 +41,9 @@ public interface Global {
 	 */
 	public static final int    GAUCHE     = 0;
 	public static final int    DROITE     = 1;
+	public static final int    HAUT       = 2;
+	public static final int    BAS        = 3;
+	public static final int    TIRE       = 4;
 	public static final String MARCHE     = "marche";
 	public static final String BLESSE     = "touche";
 	public static final String MORT       = "mort";
@@ -47,6 +51,8 @@ public interface Global {
 	public static final int    H_PERSO    = 44;
 	public static final int    L_PERSO    = 39;
 	public static final int    H_MESSAGE  = 8;
+	public static final int    NB_ETAPES  = 4;
+	public static final int    PAS        = 10;
 	
 	/**
 	 * Arene

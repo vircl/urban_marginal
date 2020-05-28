@@ -62,6 +62,14 @@ public class Arene extends JFrame implements Global {
 		setContentPane( contentPane );
 		contentPane.setLayout( null );
 		
+		if ( estClient ) {
+			contentPane.addKeyListener( new KeyAdapter() {
+				@Override
+				public void keyPressed( KeyEvent arg0 ) {
+					contentPane_keyPressed(arg0);
+				}
+			});
+		}
 		/**
 		 * Zone de texte saisie chat
 		 */
@@ -137,7 +145,35 @@ public class Arene extends JFrame implements Global {
 	}
 	
 	/**
-	 * Evènement clavier sur la zone de saisie du tchat
+	 * Gestion des déplacements des personnages
+	 * @param arg0 Code de la touche pressée par l'utilisateur
+	 */
+	private void contentPane_keyPressed(KeyEvent arg0) {
+		int valeur = -1;
+		switch ( arg0.getKeyCode() ) {
+			case KeyEvent.VK_SPACE:
+				valeur = TIRE;
+				break;
+			case KeyEvent.VK_LEFT:
+				valeur = GAUCHE;
+				break;
+			case KeyEvent.VK_RIGHT:
+				valeur = DROITE;
+				break;
+			case KeyEvent.VK_UP:
+				valeur = HAUT;
+				break;
+			case KeyEvent.VK_DOWN:
+				valeur = BAS;
+				break;
+		}
+		if ( valeur != -1 ) {
+			this.controle.evenementVue( this,  ACTION + SEPARE + valeur );
+		}
+	}
+	
+	/**
+	 * Validation zone de saisie Tchat
 	 * @param arg0 Code de la touche pressée par l'utilisateur
 	 */
 	private void txtSaisie_keyPressed(KeyEvent arg0) {
@@ -147,6 +183,7 @@ public class Arene extends JFrame implements Global {
 			contentPane.requestFocus();
 		}
 	}
+
 	
 	/**
 	 * Ajout d'un mur sur l'Arene
