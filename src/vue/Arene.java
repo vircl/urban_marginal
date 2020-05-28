@@ -137,5 +137,19 @@ public class Arene extends JFrame implements Global {
 		jpnJeu.repaint();
 	}
 	
+	/**
+	 * Modification d'un joueur sur l'Arène
+	 * ( Le joueur est ajouté s'il n'existe pas encore )
+	 * @param num   N° du joueur à modifier
+	 * @param label Label du joueur
+	 */
+	public void modifJoueur( int num, JLabel jLabel ) {
+		try {
+			jpnJeu.remove( num );
+		} catch ( ArrayIndexOutOfBoundsException e ) {}
+		jpnJeu.add( jLabel, num );
+		jpnJeu.repaint();
+	}
+	
 	
 }

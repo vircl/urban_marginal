@@ -1,5 +1,6 @@
 package modele;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controleur.Controle;
@@ -35,7 +36,9 @@ public class JeuClient extends Jeu {
 	@Override
 	public void reception( Connection connection, Object info ) {
 		if ( info instanceof JPanel ) {
-			controle.evenementModele(this, "ajout panel murs", info);
+			controle.evenementModele( this, "ajout panel murs", info );
+		} else if ( info instanceof Label ) {
+			controle.evenementModele( this,  "ajout joueur", info );
 		}
 	}
 

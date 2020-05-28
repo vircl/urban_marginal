@@ -126,5 +126,7 @@ public class Joueur extends Objet implements Global {
 		super.label.getjLabel().setIcon( new ImageIcon( PERSO + numPerso + etat + etape + "d" + this.orientation + EXTENSION ) );
 		this.message.getjLabel().setBounds( super.posx - 10, super.posy + H_PERSO, L_PERSO + 20, H_PERSO );
 		this.message.getjLabel().setText( this.pseudo + " (" + this.vie + ")" );
+		this.jeuServeur.envoi( super.label );
+		this.jeuServeur.envoi( this.message );
 	}
 }

@@ -79,8 +79,9 @@ public class Connection extends Thread {
 	/**
 	 * Envoi des données au serveur
 	 */
-	public void envoi( Object unObjet ) {
+	public synchronized void envoi( Object unObjet ) {
 		try {
+			this.out.reset();
 			this.out.writeObject( unObjet );
 			this.out.flush();
 		} catch ( IOException e ) {

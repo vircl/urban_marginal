@@ -19,8 +19,9 @@ import outils.connexion.Connection;
  */
 public class JeuServeur extends Jeu implements Global {
 
-	private ArrayList<Mur> lesMurs                  = new ArrayList<Mur>();
+	private ArrayList<Mur>               lesMurs    = new ArrayList<Mur>();
 	private Hashtable<Connection,Joueur> lesJoueurs = new Hashtable<Connection, Joueur>();
+	private ArrayList<Joueur>            triJoueurs = new ArrayList<Joueur>();
 	
 	/**
 	 * Constructeur
@@ -43,8 +44,12 @@ public class JeuServeur extends Jeu implements Global {
 		switch ( Integer.parseInt( infos[0] ) ) {
 		case PSEUDO : 
 			controle.evenementModele(this, "envoi panel murs", connection );
-			Joueur leJoueur = lesJoueurs.get( connection );
-			leJoueur.initPerso(infos[1], Integer.parseInt( infos[2] ), lesJoueurs, lesMurs );
+			for ( Joueur unJoueur : triJoueurs ) {
+				super.envoi( connection, unJoueur.getLabel() );
+				super.envoi( connection, unJoueur.getMessage() );
+			}
+			this.lesJoueurs.get( connection ).initPerso(infos[1], Integer.parseInt( infos[2] ), lesJoueurs, lesMurs );
+			this.triJoueurs.add( this.lesJoueurs.get( connection ) );
 			break; 
 		}
 	}
@@ -52,7 +57,6 @@ public class JeuServeur extends Jeu implements Global {
 	@Override
 	public void deconnection( Connection connection ) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	/**
@@ -72,5 +76,14 @@ public class JeuServeur extends Jeu implements Global {
 	public void nouveauLabelJeu( Label label ) {
 		controle.evenementModele( this, "ajout joueur", label.getjLabel() );
 	}
-	
+		
+	/**
+	 * Envoi des informations du serveur vers tous les clients
+	 * @param info
+	 */
+	public void envoi( Object info ) {
+		for ( Connection connection : lesJoueurs.keySet() ) {
+			super.envoi( connection, info );
+		}
+	}
 }
