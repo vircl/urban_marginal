@@ -17,6 +17,14 @@ public interface Global {
 	public static final String DEFAULT_IP = "127.0.0.1";
 	
 	/**
+	 * Messages
+	 */
+	public static final String SEPARE     = "¤";
+	public static final int    PSEUDO     = 0;
+	public static final int    TCHAT      = 1;
+	
+	
+	/**
 	 * Medias
 	 */
 	public static final String SEPARATOR  = "//";
@@ -59,9 +67,5 @@ public interface Global {
 	public static final int    H_MUR      = 35;
 	public static final int    L_MUR      = 34;
 	
-	/**
-	 * Messages
-	 */
-	public static final String SEPARE     = "¤";
-	public static final int    PSEUDO     = 0;
+
 }

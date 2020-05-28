@@ -89,24 +89,29 @@ public class Controle implements Global {
 	/**
 	 * Gestion des évènements côté Serveur
 	 */
-	public void evenementJeuServeur( String ordre, Object info ) {
+	private void evenementJeuServeur( String ordre, Object info ) {
 		if ( ordre.equals( "ajout mur" ) ) {
 			this.frmArene.ajoutMur( ( JLabel ) info);
 		} else if ( ordre.equals( "envoi panel murs" ) ) {
 			( (JeuServeur) this.leJeu ).envoi( ( Connection )info, frmArene.getJpnMurs() );
 		} else if ( ordre.equals( "ajout joueur" ) ) {
 			this.frmArene.ajoutJoueur( (JLabel) info );
+		} else if ( ordre.equals( "ajout tchat" ) ) {
+			this.frmArene.ajoutTchat( (String) info );
+			( ( JeuServeur ) leJeu ).envoi( this.frmArene.getTxtTchat() );
 		}
 	}
 	
 	/**
 	 * Gestion des évènements côté Client
 	 */
-	public void evenementJeuClient( String ordre, Object info ) {
+	private void evenementJeuClient( String ordre, Object info ) {
 		if ( ordre.equals( "ajout panel murs" ) ) {
 			this.frmArene.ajoutPanelMurs( ( JPanel ) info );
 		} else if ( ordre.equals( "ajout joueur" ) ) {
 			this.frmArene.modifJoueur( ( (Label) info ).getNumLabel(), ( (Label) info ).getjLabel() );
+		} else if ( ordre.equals( "maj tchat" ) ) {
+			this.frmArene.remplaceTchat( (String) info );
 		}
 	}
 	
@@ -124,6 +129,8 @@ public class Controle implements Global {
 		}
 		else if ( uneFrame instanceof ChoixJoueur ) {
 			this.evenementChoixJoueur( info );
+		} else if ( uneFrame instanceof Arene ) {
+			this.evenementArene( info );
 		}
 	}
 	
@@ -132,19 +139,19 @@ public class Controle implements Global {
 	 * 
 	 * @param info Information à traiter
 	 */
-	public void evenementEntreeJeu(Object info) {
+	private void evenementEntreeJeu(Object info) {
 		if ( ( ( String ) info ).equals( "serveur" ) ) {
 			new ServeurSocket( this, PORT );
 			this.leJeu    = new JeuServeur( this );
 			this.frmEntreeJeu.dispose();
-			this.frmArene = new Arene();
+			this.frmArene = new Arene( "serveur", this );
 			( (JeuServeur) leJeu ).constructionMurs();
 			this.frmArene.setVisible( true );
 		} else {
 			if ( ( new ClientSocket( ( String ) info, PORT, this ) ).isConnexionOK() ) {
 				this.leJeu          = new JeuClient( this );
 				this.leJeu.setConnection( connection );
-				this.frmArene       = new Arene();
+				this.frmArene       = new Arene( "client", this );
 				this.frmChoixJoueur = new ChoixJoueur( this );
 				this.frmEntreeJeu.dispose();
 				this.frmChoixJoueur.setVisible( true );
@@ -153,14 +160,23 @@ public class Controle implements Global {
 	}
 	
 	/**
-	 * Enregistre le joueur sélectionné et affiche l'Arene au client
-	 * 
-	 * @param info Information à traiter
+	 * Réception d'informations en provenance de la frame ChoixJoueur
+	 * Retourne les informations au serveur, 
+	 * efface la frame choixJoueur et affiche l'Arène
+	 * @param info Joueur et pseudo choisis par le client
 	 */
-	public void evenementChoixJoueur( Object info ) {
+	private void evenementChoixJoueur( Object info ) {
 		( ( JeuClient ) this.leJeu ).envoi( info );
 		this.frmChoixJoueur.dispose();
 		this.frmArene.setVisible( true );
+	}
+	
+	/**
+	 * Réception d'informations en provenance de l'Arène
+	 * @param info Le message saisi par le client dans la zone de tchat
+	 */
+	private void evenementArene( Object info ) {
+		( ( JeuClient) this.leJeu ).envoi( info );
 	}
 	
 }

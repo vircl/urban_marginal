@@ -69,6 +69,14 @@ public class Joueur extends Objet implements Global {
 	}
 	
 	/**
+	 * Getter pseudo
+	 * @return le pseudo associé au joueur
+	 */
+	public String getPseudo() {
+		return this.pseudo;
+	}
+	
+	/**
 	 * Getter message
 	 * @return le message du type Label
 	 */

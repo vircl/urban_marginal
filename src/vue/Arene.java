@@ -2,11 +2,17 @@ package vue;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.TextArea;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controleur.Controle;
 import controleur.Global;
 
 import javax.swing.JLabel;
@@ -34,11 +40,17 @@ public class Arene extends JFrame implements Global {
 	private JTextField txtSaisie;
 	private JPanel     jpnMurs;
 	private JPanel     jpnJeu;
+	private JTextArea  txtTchat;
+	private boolean    estClient;
+	private Controle   controle;
 
 	/**
 	 * Constructeur
 	 */
-	public Arene() {
+	public Arene( String typeJeu, Controle controle ) {
+		this.estClient = typeJeu.equals("client");
+		this.controle  = controle;
+		
 		/**
 		 * Initialisation de la frame
 		 */
@@ -53,24 +65,32 @@ public class Arene extends JFrame implements Global {
 		/**
 		 * Zone de texte saisie chat
 		 */
-		txtSaisie = new JTextField();
-		txtSaisie.setBounds( 0, H_ARENE, L_ARENE, H_SAISIE );
-		contentPane.add( txtSaisie );
-		txtSaisie.setColumns( 10 );
+		if ( estClient ) {
+			txtSaisie = new JTextField();
+			txtSaisie.setBounds( 0, H_ARENE, L_ARENE, H_SAISIE );
+			contentPane.add( txtSaisie );
+			txtSaisie.setColumns( 10 );
+			txtSaisie.addKeyListener( new KeyAdapter() {
+				@Override
+				public void keyPressed( KeyEvent arg0 ) {
+					txtSaisie_keyPressed(arg0);
+				}
+			});
+		}
 		
 		/**
 		 * Conteneur Tchat
 		 */
-		JScrollPane jspChat = new JScrollPane();
-		jspChat.setBounds( 0, H_ARENE + H_SAISIE, L_ARENE, H_CHAT - H_SAISIE - 7 * MARGE );
-		contentPane.add( jspChat );
-		jspChat.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS );
+		JScrollPane jspTchat = new JScrollPane();
+		jspTchat.setBounds( 0, H_ARENE + H_SAISIE, L_ARENE, H_CHAT - H_SAISIE - 7 * MARGE );
+		contentPane.add( jspTchat );
+		jspTchat.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS );
 		
 		/**
 		 * Text area chat
 		 */
-		JTextArea txtChat = new JTextArea();
-		jspChat.setViewportView( txtChat );
+		txtTchat = new JTextArea();
+		jspTchat.setViewportView( txtTchat );
 		
 		/**
 		 * Jeu
@@ -100,6 +120,33 @@ public class Arene extends JFrame implements Global {
 		contentPane.add( lblFond );
 		
 	}
+	/**
+	 * Getter jpnMurs
+	 * @return JPanel murs
+	 */
+	public JPanel getJpnMurs() {
+		return jpnMurs;
+	}
+	
+	/**
+	 * Getter txtTchat
+	 * @return
+	 */
+	public String getTxtTchat() {
+		return txtTchat.getText();
+	}
+	
+	/**
+	 * Evènement clavier sur la zone de saisie du tchat
+	 * @param arg0 Code de la touche pressée par l'utilisateur
+	 */
+	private void txtSaisie_keyPressed(KeyEvent arg0) {
+		if ( ( arg0.getKeyCode() == KeyEvent.VK_ENTER ) && ( ! txtSaisie.getText().equals("") ) ) {
+			this.controle.evenementVue( this, TCHAT + SEPARE + txtSaisie.getText() );
+			txtSaisie.setText("");
+			contentPane.requestFocus();
+		}
+	}
 	
 	/**
 	 * Ajout d'un mur sur l'Arene
@@ -120,13 +167,7 @@ public class Arene extends JFrame implements Global {
 		contentPane.requestFocus();
 	}
 	
-	/**
-	 * Getter jpnMurs
-	 * @return JPanel murs
-	 */
-	public JPanel getJpnMurs() {
-		return jpnMurs;
-	}
+
 	
 	/**
 	 * Ajout d'un joueur sur l'Arène
@@ -151,5 +192,19 @@ public class Arene extends JFrame implements Global {
 		jpnJeu.repaint();
 	}
 	
-	
+	/**
+	 * Mise à jour du tchat : ajout d'une phrase
+	 * @param unePhrase
+	 */
+	public void ajoutTchat( String unePhrase ) {
+		String old = txtTchat.getText();
+		txtTchat.setText( unePhrase + "\r\n" + old );
+	}
+	/**
+	 * Remplace le contenu du tchat
+	 * @param contentu
+	 */
+	public void remplaceTchat( String contenu ) {
+		txtTchat.setText( contenu );
+	}
 }

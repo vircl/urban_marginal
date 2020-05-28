@@ -41,6 +41,7 @@ public class JeuServeur extends Jeu implements Global {
 	@Override
 	public void reception( Connection connection, Object info ) {
 		String[] infos = ( ( String ) info ).split( SEPARE );
+		String   laPhrase;
 		switch ( Integer.parseInt( infos[0] ) ) {
 		case PSEUDO : 
 			controle.evenementModele(this, "envoi panel murs", connection );
@@ -50,7 +51,13 @@ public class JeuServeur extends Jeu implements Global {
 			}
 			this.lesJoueurs.get( connection ).initPerso(infos[1], Integer.parseInt( infos[2] ), lesJoueurs, lesMurs );
 			this.triJoueurs.add( this.lesJoueurs.get( connection ) );
+			laPhrase = " *** " + this.lesJoueurs.get( connection ).getPseudo() + " vient de se connecter *** ";
+			controle.evenementModele( this, "ajout tchat", laPhrase );
 			break; 
+		case TCHAT :
+			laPhrase = this.lesJoueurs.get( connection ).getPseudo() + " > " + ( (String) infos[1] );
+			controle.evenementModele( this, "ajout tchat", laPhrase );
+			break;
 		}
 	}
 
