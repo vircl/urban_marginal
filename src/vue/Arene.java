@@ -106,8 +106,7 @@ public class Arene extends JFrame implements Global {
 	 * @param unMur Le mur à ajouter
 	 */
 	public void ajoutMur( JLabel unMur ) {
-		System.out.println( "Vue Arene méthode ajoutMur : " );
-		jpnMurs.add( ( JLabel ) unMur );
+		jpnMurs.add( unMur );
 		jpnMurs.repaint();
 	}
 	
@@ -128,4 +127,15 @@ public class Arene extends JFrame implements Global {
 	public JPanel getJpnMurs() {
 		return jpnMurs;
 	}
+	
+	/**
+	 * Ajout d'un joueur sur l'Arène
+	 * @param unJoueur
+	 */
+	public void ajoutJoueur( JLabel unJoueur ) {
+		jpnJeu.add( unJoueur );
+		jpnJeu.repaint();
+	}
+	
+	
 }

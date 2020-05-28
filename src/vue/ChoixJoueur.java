@@ -162,7 +162,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * @return void
 	 */
 	private void souris_normale() {
-		contentPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		contentPane.setCursor( new Cursor ( Cursor.DEFAULT_CURSOR ) );
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * @return void
 	 */
 	private void souris_hover() {
-		contentPane.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		contentPane.setCursor( new Cursor( Cursor.HAND_CURSOR ) );
 	}
 	
 	/**
@@ -180,7 +180,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * @return void
 	 */
 	private void affichePerso() {
-		lblPersonnage.setIcon(new ImageIcon(PERSO + numPerso + MARCHE + "1d1" + EXTENSION));
+		lblPersonnage.setIcon( new ImageIcon( PERSO + numPerso + MARCHE + "1d1" + EXTENSION ) );
 	}
 	
 	/**
@@ -189,7 +189,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * @return void
 	 */
 	private void lblPrecedent_clic() {
-		numPerso = ((numPerso + 1) % NB_PERSOS ) + 1;
+		numPerso = ( ( numPerso + 1 ) % NB_PERSOS ) + 1;
 		affichePerso();
 	}
 	
@@ -199,7 +199,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * @return void
 	 */
 	private void lblSuivant_clic() {
-		numPerso = (numPerso % NB_PERSOS ) + 1;
+		numPerso = ( numPerso % NB_PERSOS ) + 1;
 		affichePerso();
 	}
 	

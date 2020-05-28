@@ -1,5 +1,7 @@
 package modele;
 
+import javax.swing.JLabel;
+
 /**
  * Classe Objet
  * 
@@ -42,5 +44,23 @@ public abstract class Objet {
 		return label;
 	}
 	
-	
+	/**
+	 * Teste si l'objet actuel touche celui passé en paramètre
+	 * @param  objet   Objet dont on veut tester la collision
+	 * @return boolean
+	 */
+	public boolean toucheObjet( Objet objet ) {
+		if ( objet.label == null || objet.label.getjLabel() == null ) {
+			return false;
+		} else {
+			int l_obj  = objet.label.getjLabel().getWidth();
+			int h_obj  = objet.label.getjLabel().getHeight();
+			int l_this = this.label.getjLabel().getWidth();
+			int h_this = this.label.getjLabel().getHeight();
+			return ( ! ( ( this.posx + l_this < objet.posx || 
+					this.posx > objet.posx + l_obj ) || 
+					( this.posy + h_this < objet.posy || 
+					this.posy > objet.posy + h_obj ) ) );
+		}
+	}
 }

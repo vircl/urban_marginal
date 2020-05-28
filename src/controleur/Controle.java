@@ -90,9 +90,11 @@ public class Controle implements Global {
 	 */
 	public void evenementJeuServeur( String ordre, Object info ) {
 		if ( ordre.equals( "ajout mur" ) ) {
-			this.frmArene.ajoutMur((JLabel)info);
+			this.frmArene.ajoutMur( ( JLabel ) info);
 		} else if ( ordre.equals( "envoi panel murs" ) ) {
 			( (JeuServeur) this.leJeu ).envoi( ( Connection )info, frmArene.getJpnMurs() );
+		} else if ( ordre.contentEquals( "ajout joueur" ) ) {
+			this.frmArene.ajoutJoueur( (JLabel) info );
 		}
 	}
 	

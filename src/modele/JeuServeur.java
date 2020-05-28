@@ -33,13 +33,20 @@ public class JeuServeur extends Jeu implements Global {
 	
 	@Override
 	public void setConnection( Connection connection ) {
-		this.lesJoueurs.put( connection, new Joueur() );
-		controle.evenementModele(this, "envoi panel murs", connection );
+		this.lesJoueurs.put( connection, new Joueur( this ) );
+		// controle.evenementModele(this, "envoi panel murs", connection );
 	}
 
 	@Override
 	public void reception( Connection connection, Object info ) {
-		// TODO Auto-generated method stub
+		String[] infos = ( ( String ) info ).split( SEPARE );
+		switch ( Integer.parseInt( infos[0] ) ) {
+		case PSEUDO : 
+			controle.evenementModele(this, "envoi panel murs", connection );
+			Joueur leJoueur = lesJoueurs.get( connection );
+			leJoueur.initPerso(infos[1], Integer.parseInt( infos[2] ), lesJoueurs, lesMurs );
+			break; 
+		}
 	}
 
 	@Override
@@ -56,6 +63,14 @@ public class JeuServeur extends Jeu implements Global {
 			this.lesMurs.add(new Mur() );
 			controle.evenementModele( this, "ajout mur", this.lesMurs.get( lesMurs.size() - 1 ).getLabel().getjLabel() );
 		}
+	}
+	
+	/**
+	 * Ajout d'un joueur
+	 * @param label Label correspondant au joueur à ajouter
+	 */
+	public void nouveauLabelJeu( Label label ) {
+		controle.evenementModele( this, "ajout joueur", label.getjLabel() );
 	}
 	
 }
