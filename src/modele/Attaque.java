@@ -9,24 +9,22 @@ import outils.connexion.Connection;
 /**
  * Classe Attaque
  * 
- * @project Urban Marginal
- * @package modele
- * @version 1.0
- * @author  Virginie
- *
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> modele </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class Attaque extends Thread implements Global {
 
-	private Joueur         attaquant;
-	private JeuServeur     jeuServeur;
-	private ArrayList<Mur> lesMurs;
+	private Joueur                        attaquant;
+	private JeuServeur                    jeuServeur;
+	private ArrayList<Mur>                lesMurs;
 	private Hashtable<Connection, Joueur> lesJoueurs;
 
 	
 	/**
 	 * Constructeur
-	 * @param attaquant
-	 * @param jeuServeur
+	 * @param attaquant  le joueur à l'origine de l'attaque
+	 * @param jeuServeur instance du serveur
 	 */
 	public Attaque( Joueur attaquant, JeuServeur jeuServeur, ArrayList<Mur> lesMurs, Hashtable<Connection, Joueur> lesJoueurs ) {
 		this.attaquant  = attaquant;
@@ -37,14 +35,15 @@ public class Attaque extends Thread implements Global {
 	}
 	
 	/**
-	 * Lancement du thread
+	 * Lancement du thread : permet de faire bouger la boule
 	 */
 	public void run() {
+
 		attaquant.affiche( MARCHE , 1 ); 
-		Boule laBoule     = this.attaquant.getBoule();
-		Joueur victime    = null;
-		int   orientation = this.attaquant.getOrientation();
+		Boule  laBoule     = this.attaquant.getBoule();
+		int    orientation = this.attaquant.getOrientation();
 		laBoule.getLabel().getjLabel().setVisible( true );
+		Joueur victime     = null;
 		do {
 			laBoule.setPosx( orientation == GAUCHE ? laBoule.getPosx() - PAS : laBoule.getPosx() + PAS ) ;
 			laBoule.getLabel().getjLabel().setBounds( laBoule.getPosx(), laBoule.getPosy(), L_BOULE, H_BOULE );
@@ -52,6 +51,7 @@ public class Attaque extends Thread implements Global {
 			this.jeuServeur.envoi( laBoule.getLabel() );
 			victime = toucheJoueur();
 		} while ( laBoule.getPosx() >= 0 && laBoule.getPosx() <= L_ARENE  &&  ! toucheMur() && victime == null );
+		
 		if ( victime != null && ! victime.estMort() ) {
 			this.jeuServeur.envoi( SON_BLESSE );
 			victime.perdVie();
@@ -77,20 +77,20 @@ public class Attaque extends Thread implements Global {
 	
 	/**
 	 * Pause
-	 * @param milli
-	 * @param nano
+	 * @param milli nombre de millisecondes de la pause
+	 * @param nano  nombre de nanosecondes de la pause
 	 */
 	private void pause( long milli, int nano ) {
 		try {
 			Thread.sleep( milli, nano );
 		} catch (InterruptedException e) 	{
-			System.out.println( "Problème sur la pause" );
+			System.out.println( "*** ERREUR *** Problème sur la pause" );
 		}
 	}
 	
 	/**
 	 * Teste si la boule touche un mur
-	 * @return
+	 * @return vrai si la boule est entrée en collision avec un mur
 	 */
 	private boolean toucheMur() {
 		for ( Mur unMur: this.lesMurs ) {
@@ -103,7 +103,7 @@ public class Attaque extends Thread implements Global {
 	
 	/**
 	 * Teste si la boule touche un joueur
-	 * @return
+	 * @return vrai si la boule est entrée en collision avec un joueur
 	 */
 	private Joueur toucheJoueur() {
 		for ( Joueur unJoueur : this.lesJoueurs.values() ) {

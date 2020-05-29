@@ -16,15 +16,12 @@ import vue.ChoixJoueur;
 import vue.EntreeJeu;
 
 /**
- * Classe Controle
- * 
+ * Contrôleur de l'application 
  * Gère les événements provenant du modèle et de la vue
  * 
- * @project Urban Marginal
- * @package controleur
- * @version 1.0
- * @author  Virginie
- *
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> controleur </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class Controle implements Global {
 
@@ -53,7 +50,7 @@ public class Controle implements Global {
 
 	/**
 	 * Récupération de la connexion
-	 * @param connection Objet Connection
+	 * @param connection joueur connecté
 	 */
 	public void setConnection( Connection connection ) {
 		this.connection = connection;
@@ -63,15 +60,26 @@ public class Controle implements Global {
 	}
 	
 	/**
+	 * Déconnexion d'un joueur
+	 * @param connection
+	 */
+	public void deconnection( Connection connection ) {
+		this.leJeu.deconnection( connection );
+	}
+	
+	/**
 	 * Réception des informations depuis le serveur
-	 * @param connection Objet connection
-	 * @param info       Informations transmises depuis le serveur
+	 * @param connection Joueur connecté
+	 * @param info       Informations transférées
 	 */
 	public void receptionInfo( Connection connection, Object info ) {
 		leJeu.reception( connection, info );
 	}
 	
-	// EVENEMENTS MODELE
+	/* *******************************************************************************
+	 * Evènements en provenance du modèle
+	 * *******************************************************************************/
+	
 	/**
 	 * Gestion des évènements en provenance du modèle
 	 * @param unJeu JeuClient ou JeuServeur
@@ -88,6 +96,8 @@ public class Controle implements Global {
 	
 	/**
 	 * Gestion des évènements côté Serveur
+	 * @param ordre Chaîne décrivant l'action à effectuer
+	 * @param info  Objet concerné par l'action
 	 */
 	private void evenementJeuServeur( String ordre, Object info ) {
 		if ( ordre.equals( "ajout mur" ) ) {
@@ -104,6 +114,8 @@ public class Controle implements Global {
 	
 	/**
 	 * Gestion des évènements côté Client
+	 * @param ordre Chaîne décrivant l'action à effectuer
+	 * @param info  Objet concerné par l'action
 	 */
 	private void evenementJeuClient( String ordre, Object info ) {
 		if ( ordre.equals( "ajout panel murs" ) ) {
@@ -118,12 +130,13 @@ public class Controle implements Global {
 	}
 	
 	
-	// EVENEMENTS VUE
+	/* *******************************************************************************
+	 * Evènements en provenance de la vue
+	 * *******************************************************************************/
 	/**
 	 * Gestion des évènements en provenance de la vue
-	 * 
 	 * @param  uneFrame Frame à l'origine de l'évènement
-	 * @param  info     Information à traiter
+	 * @param  info     Info à traiter
 	 */
 	public void evenementVue(JFrame uneFrame, Object info) {
 		if ( uneFrame instanceof EntreeJeu ) {
@@ -138,7 +151,6 @@ public class Controle implements Global {
 	
 	/**
 	 * Démarre un jeu serveur ou client, selon le bouton cliqué par l'utilisateur
-	 * 
 	 * @param info Information à traiter
 	 */
 	private void evenementEntreeJeu(Object info) {
@@ -174,19 +186,11 @@ public class Controle implements Global {
 	}
 	
 	/**
-	 * Réception d'informations en provenance de l'Arène
+	 * Réception d'informations en provenance de la frame Arène
 	 * @param info Le message saisi par le client dans la zone de tchat
 	 */
 	private void evenementArene( Object info ) {
 		( ( JeuClient) this.leJeu ).envoi( info );
 	}
 	
-	
-	/**
-	 * Déconnexion d'un joueur
-	 * @param connection
-	 */
-	public void deconnection( Connection connection ) {
-		this.leJeu.deconnection( connection );
-	}
 }

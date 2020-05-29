@@ -11,12 +11,12 @@ import controleur.Global;
 import outils.connexion.Connection;
 
 /**
- * Arme boule
+ * Description des caractéristiques de la boule 
+ * servant d'arme aux joueurs
  * 
- * @project Urban Marginal
- * @package modele
- * @version 1.0
- * @author Virginie
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> modele </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class Boule extends Objet implements Global {
 

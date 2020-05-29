@@ -1,13 +1,11 @@
 package controleur;
 /**
  * Interface Global 
- * 
  * Définition des constantes utilisées par l'application
  * 
- * @project Urban Marginal
- * @package controleur
- * @version 1.0
- * @author  Virginie
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> controleur </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public interface Global {
 	/**

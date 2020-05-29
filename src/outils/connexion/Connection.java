@@ -12,10 +12,9 @@ import controleur.Controle;
 /**
  * Classe Connection
  * 
- * @project Urban Marginal
- * @pacakge outils.connexion
- * @version 1.0
- * @author  Virginie
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> outils.connexion </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class Connection extends Thread {
 	
@@ -25,7 +24,6 @@ public class Connection extends Thread {
 	
 	/**
 	 * Constructeur
-	 * 
 	 * @param socket      Socket de l'ordinateur distant
 	 * @param leRecepteur Objet leRecepteur de la classe ServeurSocket ou ClientSocket
 	 */
@@ -79,6 +77,7 @@ public class Connection extends Thread {
 	
 	/**
 	 * Envoi des données au serveur
+	 * @param unObjet objet à envoyerr au serveur
 	 */
 	public synchronized void envoi( Object unObjet ) {
 		try {

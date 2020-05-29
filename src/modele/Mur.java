@@ -10,11 +10,9 @@ import controleur.Global;
  * Classe Mur
  * Cette classe hérite de la classe Objet
  * 
- * @project Urban Marginal
- * @package modele
- * @version 1.0
- * @author  Virginie
- *
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> modele </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class Mur extends Objet implements Global {
 

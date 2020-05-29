@@ -18,15 +18,12 @@ import java.awt.event.MouseEvent;
 
 /**
  * Classe EntreeJeu
- * 
  * Cette classe génère une frame permettant au joueur de démarrer un nouveau serveur
  * ou de rejoindre un serveur existant
  * 
- * @project Urban Marginal
- * @pacakge vue
- * @version 1.0
- * @author  Virginie
- *
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> vue </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class EntreeJeu extends JFrame implements Global {
 
@@ -37,10 +34,10 @@ public class EntreeJeu extends JFrame implements Global {
 	
 	/**
 	 * Constructeur
-	 * 
 	 * @param controle Instance du contrôleur
 	 */
 	public EntreeJeu(Controle controle) {
+		
 		/**
 		 * Initialisation de la frame
 		 */

@@ -15,11 +15,9 @@ import outils.connexion.Connection;
 /**
  * Classe Joueur
  * 
- * @project Urban Marginal
- * @package modele
- * @version 1.0
- * @author  Virginie
- *
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> modele </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class Joueur extends Objet implements Global {
 	
@@ -161,13 +159,13 @@ public class Joueur extends Objet implements Global {
 	
 	/**
 	 * Gestion du déplacement du joueur
-	 * @param action
-	 * @param position
-	 * @param orientation
-	 * @param pas
-	 * @param max
-	 * @param lesJoueurs
-	 * @param lesMurs
+	 * @param action      Direction dans lequel le joueur doit se déplacer
+	 * @param position    Position initiale du joueur
+	 * @param orientation Orientation initiale du joueur
+	 * @param pas         Pas avec lequel incrémenter la position du joueur
+	 * @param max         Position maximale jusqu'à laquelle le joueur peut se déplacer
+	 * @param lesJoueurs  Liste des joueurs
+	 * @param lesMurs     Liste des murs
 	 * @return
 	 */
 	private int deplace( int action, int position, int orientation, int pas, int max, Hashtable<Connection,Joueur> lesJoueurs, ArrayList<Mur> lesMurs ) {
@@ -186,9 +184,9 @@ public class Joueur extends Objet implements Global {
 	
 	/**
 	 * Repositionne le joueur sur l'arène
-	 * @param action
-	 * @param lesJoueurs
-	 * @param lesMurs
+	 * @param action      Direction du déplacement
+	 * @param lesJoueurs  Liste des joueurs
+	 * @param lesMurs     Liste des murs
 	 */
 	public void action( int action, Hashtable<Connection,Joueur> lesJoueurs, ArrayList<Mur> lesMurs ) {
 		switch ( action ) {
@@ -205,11 +203,10 @@ public class Joueur extends Objet implements Global {
 			this.posy = deplace( action, this.posy, orientation, PAS, H_ARENE - H_PERSO - H_MESSAGE, lesJoueurs, lesMurs );
 			break;
 		case TIRE :
-			//if ( ! boule.getLabel().getjLabel().isVisible() ) {
+			if ( ! boule.getLabel().getjLabel().isVisible() ) {
 				this.jeuServeur.envoi( SON_TIRE );
 				this.boule.tirer( this, lesMurs, lesJoueurs );
-			//}
-
+			}
 			break;
 		}
 		affiche( MARCHE, etape );
@@ -234,7 +231,7 @@ public class Joueur extends Objet implements Global {
 	/**
 	 * Teste si le joueur est mort
 	 * Le joueur meurt lorsque son nombre de vie atteint 0
-	 * @return
+	 * @return vrai si le nombre de vie du joueur est égal à 0
 	 */
 	public boolean estMort() {
 		return this.vie == 0;

@@ -25,15 +25,11 @@ import javax.swing.JTextArea;
 
 /**
  * Classe Arene
+ * Affichage de l'espace de jeu
  * 
- * Cette classe affiche l'arène dans 
- * laquelle les joueurs seront invités à combattre
- * 
- * @project Urban Marginal
- * @pacakge vue
- * @version 1.0
- * @author  Virginie
- *
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> vue </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class Arene extends JFrame implements Global {
 
@@ -142,7 +138,7 @@ public class Arene extends JFrame implements Global {
 	}
 	/**
 	 * Getter jpnMurs
-	 * @return JPanel murs
+	 * @return JPanel contenant les murs
 	 */
 	public JPanel getJpnMurs() {
 		return jpnMurs;
@@ -150,7 +146,7 @@ public class Arene extends JFrame implements Global {
 	
 	/**
 	 * Getter txtTchat
-	 * @return
+	 * @return le texte du Tchat
 	 */
 	public String getTxtTchat() {
 		return txtTchat.getText();
@@ -220,7 +216,7 @@ public class Arene extends JFrame implements Global {
 	
 	/**
 	 * Ajout d'un joueur sur l'Arène
-	 * @param unJoueur
+	 * @param unJoueur le joueur à ajouter
 	 */
 	public void ajoutJoueur( JLabel unJoueur ) {
 		jpnJeu.add( unJoueur );
@@ -243,7 +239,7 @@ public class Arene extends JFrame implements Global {
 	
 	/**
 	 * Mise à jour du tchat : ajout d'une phrase
-	 * @param unePhrase
+	 * @param unePhrase la phrase à ajouter sur le tchat
 	 */
 	public void ajoutTchat( String unePhrase ) {
 		String old = txtTchat.getText();
@@ -251,7 +247,7 @@ public class Arene extends JFrame implements Global {
 	}
 	/**
 	 * Remplace le contenu du tchat
-	 * @param contentu
+	 * @param contenu le contenu du tchat à réactualiser
 	 */
 	public void remplaceTchat( String contenu ) {
 		txtTchat.setText( contenu );

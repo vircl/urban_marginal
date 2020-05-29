@@ -11,10 +11,9 @@ import java.net.Socket;
  * qui voudraient se connecter (plusieurs joueurs peuvent accéder au serveur
  * pour entrer dans l'arène du jeu)
  * 
- * @project Urban Marginal
- * @package outils.connexion
- * @version 1.0
- * @author  Virginie
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> outils.connexion </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class ServeurSocket extends Thread {
 	
@@ -42,7 +41,6 @@ public class ServeurSocket extends Thread {
 	/**
 	 * Démarrage du serveur
 	 * Boucle infinie en attente de nouveaux clients
-	 * 
 	 * {@inheritDoc}
 	 */
 	@Override

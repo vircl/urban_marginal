@@ -21,14 +21,11 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 /**
  * Classe ChoixJoueur
- * 
  * Cette classe génère une frame permettant au client de sélectionner un personnage
  * 
- * @project Urban Marginal
- * @pacakge vue
- * @version 1.0
- * @author  Virginie
- *
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> vue </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class ChoixJoueur extends JFrame implements Global {
 

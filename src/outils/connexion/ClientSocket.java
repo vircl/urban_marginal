@@ -8,14 +8,12 @@ import javax.swing.JOptionPane;
 
 /**
  * Classe ClientSocket
- * 
  * Connexion à un serveur et lancement d'un thread indépendant
  * en attente des messages du serveur
  * 
- * @project Urban Marginal
- * @pacakge outils.connexion
- * @version 1.0
- * @author  Virginie
+ * <p><b> Projet :  </b> Urban Marginal </p>
+ * <p><b> Package : </b> outils.connexion </p>
+ * <p><b> Auteur :  </b> vircl </p>
  */
 public class ClientSocket {
 	
@@ -43,7 +41,7 @@ public class ClientSocket {
 	}
 	/**
 	 * Getter ConnexionOK
-	 * @return boolean
+	 * @return vrai si la connexion a réussi
 	 */
 	public boolean isConnexionOK() {
 		return connexionOK;
