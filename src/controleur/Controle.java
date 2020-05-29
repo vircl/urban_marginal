@@ -179,4 +179,12 @@ public class Controle implements Global {
 		( ( JeuClient) this.leJeu ).envoi( info );
 	}
 	
+	
+	/**
+	 * Déconnexion d'un joueur
+	 * @param connection
+	 */
+	public void deconnection( Connection connection ) {
+		this.leJeu.deconnection( connection );
+	}
 }

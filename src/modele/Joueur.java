@@ -30,6 +30,8 @@ public class Joueur extends Objet implements Global {
 	private int        vie;
 	private int        orientation;
 	private int        etape;
+	private Boule      boule;
+	
 
 	
 	/**
@@ -37,7 +39,7 @@ public class Joueur extends Objet implements Global {
 	 */
 	public Joueur(JeuServeur jeuServeur) {
 		this.jeuServeur  = jeuServeur;
-		this.vie         = 10;
+		this.vie         = MAX_VIE;
 		this.etape       = 1;
 		this.orientation = DROITE;
 	}
@@ -60,12 +62,15 @@ public class Joueur extends Objet implements Global {
 		this.message = new Label( Label.getNbLabel(), new JLabel() );
 		Label.setNbLabel( Label.getNbLabel() + 1 );
 		this.message.getjLabel().setHorizontalAlignment( SwingConstants.CENTER );
-		this.message.getjLabel().setFont( new Font( "Dialog", Font.PLAIN, 12 ) );
+		this.message.getjLabel().setFont( new Font( "Dialog", Font.PLAIN, 8 ) );
 		this.message.getjLabel().setForeground( Color.WHITE );
 		this.jeuServeur.nouveauLabelJeu( message );
 		
 		this.premierePosition(lesJoueurs, lesMurs);
 		this.affiche( MARCHE, this.etape );
+		
+		this.boule = new Boule( this.jeuServeur );
+		this.jeuServeur.envoi( this.boule.getLabel() );
 	}
 	
 	/**
@@ -82,6 +87,22 @@ public class Joueur extends Objet implements Global {
 	 */
 	public Label getMessage() {
 		return this.message;
+	}
+	
+	/**
+	 * Getter boule
+	 * @return
+	 */
+	public Boule getBoule() {
+		return this.boule;
+	}
+	
+	/**
+	 * Getter orientation
+	 * @return
+	 */
+	public int getOrientation() {
+		return this.orientation;
 	}
 	
 	/**
@@ -129,7 +150,7 @@ public class Joueur extends Objet implements Global {
 	 * Affiche le joueur en fonction de son état et l'étape de marche
 	 * @param etat
 	 */
-	private void affiche( String etat, int etape ) {
+	public void affiche( String etat, int etape ) {
 		super.label.getjLabel().setBounds( super.posx, super.posy, L_PERSO, H_PERSO );
 		super.label.getjLabel().setIcon( new ImageIcon( PERSO + numPerso + etat + etape + "d" + this.orientation + EXTENSION ) );
 		this.message.getjLabel().setBounds( super.posx - 10, super.posy + H_PERSO, L_PERSO + 20, H_PERSO );
@@ -159,7 +180,7 @@ public class Joueur extends Objet implements Global {
 		if ( this.toucheJoueur( lesJoueurs ) || this.toucheMur( lesMurs ) ) {
 			position = positionInitiale;
 		}
-		etape = ( etape % NB_ETAPES ) + 1 ;
+		etape = ( etape % NB_ETATS_MARCHE ) + 1 ;
 		return position;
 	}
 	
@@ -184,8 +205,53 @@ public class Joueur extends Objet implements Global {
 			this.posy = deplace( action, this.posy, orientation, PAS, H_ARENE - H_PERSO - H_MESSAGE, lesJoueurs, lesMurs );
 			break;
 		case TIRE :
+			System.out.println( boule.getLabel().getjLabel().isVisible() );
+			//if ( ! boule.getLabel().getjLabel().isVisible() ) {
+				this.boule.tirer( this, lesMurs, lesJoueurs );
+			//}
+
 			break;
 		}
 		affiche( MARCHE, etape );
+	}
+	
+	/**
+	 * Ajoute des points de vie au joueur
+	 */
+	public void gagneVie() {
+		int vies = this.vie + GAIN_VIE ;
+		this.vie = vies <= MAX_VIE ? vies : this.vie;
+	}
+	
+	/**
+	 * Retire des points de vie au joueur
+	 */
+	public void perdVie() {
+		int vies = this.vie - PERTE_VIE;
+		this.vie = vies >= 0 ? vies : this.vie;
+	}
+	
+	/**
+	 * Teste si le joueur est mort
+	 * Le joueur meurt lorsque son nombre de vie atteint 0
+	 * @return
+	 */
+	public boolean estMort() {
+		return this.vie == 0;
+	}
+	
+	/**
+	 * Le joueur sort de l'arène
+	 */
+	public void quitter() {
+		if ( ! ( super.label == null ) ) {
+			this.boule.getLabel().getjLabel().setVisible( false );
+			super.label.getjLabel().setVisible( false );
+			this.message.getjLabel().setVisible( false );
+			this.jeuServeur.envoi( super.label );
+			this.jeuServeur.envoi( this.message );
+			this.jeuServeur.envoi( this.boule.getLabel() );
+		}
+
 	}
 }

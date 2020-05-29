@@ -45,6 +45,21 @@ public abstract class Objet {
 	}
 	
 	/**
+	 * Setter posx
+	 */
+	public void setPosx( int posx ) {
+		this.posx = posx;
+	}
+	
+	/**
+	 * Setter posy
+	 * @param posy
+	 */
+	public void setPosy( int posy ) {
+		this.posy = posy;
+	}
+	
+	/**
 	 * Teste si l'objet actuel touche celui passé en paramètre
 	 * @param  objet   Objet dont on veut tester la collision
 	 * @return boolean

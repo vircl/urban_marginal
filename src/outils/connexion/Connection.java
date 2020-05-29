@@ -65,8 +65,9 @@ public class Connection extends Thread {
 				System.exit(0);
 			} catch ( IOException e ) {
 				System.out.println( "*** WARNING *** Ordinateur distant déconnecté " + e );
-				JOptionPane.showMessageDialog( null, "L'ordinateur distant est déconnecté" );
+				//JOptionPane.showMessageDialog( null, "L'ordinateur distant est déconnecté" );
 				inOk = false;
+				( ( Controle ) this.leRecepteur ).deconnection( this );
 				try {
 					this.in.close();
 				} catch ( IOException e1 ) {

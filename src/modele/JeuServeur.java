@@ -48,6 +48,7 @@ public class JeuServeur extends Jeu implements Global {
 			for ( Joueur unJoueur : triJoueurs ) {
 				super.envoi( connection, unJoueur.getLabel() );
 				super.envoi( connection, unJoueur.getMessage() );
+				super.envoi( connection, unJoueur.getBoule().getLabel() );
 			}
 			this.lesJoueurs.get( connection ).initPerso(infos[1], Integer.parseInt( infos[2] ), lesJoueurs, lesMurs );
 			this.triJoueurs.add( this.lesJoueurs.get( connection ) );
@@ -59,13 +60,16 @@ public class JeuServeur extends Jeu implements Global {
 			controle.evenementModele( this, "ajout tchat", laPhrase );
 			break;
 		case ACTION :
-			this.lesJoueurs.get( connection ).action( Integer.parseInt( infos[1] ), this.lesJoueurs, this.lesMurs );
+			if ( ! this.lesJoueurs.get(connection).estMort() ) {
+				this.lesJoueurs.get( connection ).action( Integer.parseInt( infos[1] ), this.lesJoueurs, this.lesMurs );
+			}
 		}
 	}
 
 	@Override
 	public void deconnection( Connection connection ) {
-		// TODO Auto-generated method stub
+		this.lesJoueurs.get( connection ).quitter();
+		this.lesJoueurs.remove( connection );
 	}
 	
 	/**
