@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import controleur.Controle;
 import controleur.Global;
+import outils.son.Son;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,6 +38,11 @@ public class ChoixJoueur extends JFrame implements Global {
 	
 	private Integer    numPerso;
 	private Controle   controle;
+	
+	private Son        precedent;
+	private Son        suivant;
+	private Son        welcome;
+	private Son        go;
 	
 	/**
 	 * Constructeur 
@@ -154,6 +160,12 @@ public class ChoixJoueur extends JFrame implements Global {
 		 */
 		numPerso = 1;
 		affichePerso();
+		
+		this.precedent = new Son( SON_PRECEDENT );
+		this.suivant   = new Son( SON_SUIVANT );
+		this.go        = new Son( SON_GO );
+		this.welcome   = new Son( SON_WELCOME );
+		this.welcome.play();
 	}
 
 	/**
@@ -189,6 +201,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * @return void
 	 */
 	private void lblPrecedent_clic() {
+		this.precedent.play();
 		numPerso = ( ( numPerso + 1 ) % NB_PERSOS ) + 1;
 		affichePerso();
 	}
@@ -199,6 +212,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * @return void
 	 */
 	private void lblSuivant_clic() {
+		this.suivant.play();
 		numPerso = ( numPerso % NB_PERSOS ) + 1;
 		affichePerso();
 	}
@@ -209,6 +223,7 @@ public class ChoixJoueur extends JFrame implements Global {
 	 * @return void
 	 */
 	private void lblGo_clic() {
+		this.go.play();
 		if ((txtPseudo.getText()).equals("")) {
 			JOptionPane.showMessageDialog(null, "Le pseudo est obligatoire !");
 			txtPseudo.requestFocus();

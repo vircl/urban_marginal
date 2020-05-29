@@ -53,6 +53,7 @@ public class Attaque extends Thread implements Global {
 			victime = toucheJoueur();
 		} while ( laBoule.getPosx() >= 0 && laBoule.getPosx() <= L_ARENE  &&  ! toucheMur() && victime == null );
 		if ( victime != null && ! victime.estMort() ) {
+			this.jeuServeur.envoi( SON_BLESSE );
 			victime.perdVie();
 			attaquant.gagneVie();
 			for ( int i = 1; i < NB_ETATS_BLESSE; i ++ ) {
@@ -60,6 +61,7 @@ public class Attaque extends Thread implements Global {
 				this.pause( 80, 0 );
 			}
 			if ( victime.estMort() ) {
+				this.jeuServeur.envoi( SON_MORT );
 				for ( int i = 1; i < NB_ETATS_MORT; i ++ ) {
 					victime.affiche( MORT, i);
 					this.pause( 80, 0);

@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import controleur.Controle;
 import controleur.Global;
+import outils.son.Son;
 
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -43,6 +44,7 @@ public class Arene extends JFrame implements Global {
 	private JTextArea  txtTchat;
 	private boolean    estClient;
 	private Controle   controle;
+	private Son[]      lesSons = new Son[SON.length];
 
 	/**
 	 * Constructeur
@@ -126,6 +128,16 @@ public class Arene extends JFrame implements Global {
 		lblFond.setBounds( 0, 0, L_ARENE, H_ARENE );
 		lblFond.setIcon( new ImageIcon( FOND_ARENE ) );
 		contentPane.add( lblFond );
+		
+		/**
+		 * Sons
+		 */
+		if ( estClient ) {
+			for ( int i = 0; i < SON.length; i ++ ) {
+				lesSons[i] = new Son( SONS + SON[i] );
+			}
+			( new Son ( SON_AMBIANCE ) ).playContinue();
+		}
 		
 	}
 	/**
@@ -243,5 +255,13 @@ public class Arene extends JFrame implements Global {
 	 */
 	public void remplaceTchat( String contenu ) {
 		txtTchat.setText( contenu );
+	}
+	
+	/**
+	 * Joue le son dont l'ID est passé en paramètre
+	 * @param numSon N° du son à jouer
+	 */
+	public void jouerSon( Integer numSon ) {
+		lesSons[numSon].play();
 	}
 }

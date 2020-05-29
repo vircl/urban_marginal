@@ -41,6 +41,8 @@ public class JeuClient extends Jeu {
 			controle.evenementModele( this,  "ajout joueur", info );
 		} else if ( info instanceof String ) {
 			controle.evenementModele( this,  "maj tchat", info );
+		} else if ( info instanceof Integer ) {
+			controle.evenementModele( this, "jouer son", info );
 		}
 	}
 

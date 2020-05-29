@@ -205,8 +205,8 @@ public class Joueur extends Objet implements Global {
 			this.posy = deplace( action, this.posy, orientation, PAS, H_ARENE - H_PERSO - H_MESSAGE, lesJoueurs, lesMurs );
 			break;
 		case TIRE :
-			System.out.println( boule.getLabel().getjLabel().isVisible() );
 			//if ( ! boule.getLabel().getjLabel().isVisible() ) {
+				this.jeuServeur.envoi( SON_TIRE );
 				this.boule.tirer( this, lesMurs, lesJoueurs );
 			//}
 

@@ -112,6 +112,8 @@ public class Controle implements Global {
 			this.frmArene.modifJoueur( ( (Label) info ).getNumLabel(), ( (Label) info ).getjLabel() );
 		} else if ( ordre.equals( "maj tchat" ) ) {
 			this.frmArene.remplaceTchat( (String) info );
+		} else if ( ordre.equals( "jouer son" ) ) {
+			this.frmArene.jouerSon( ( Integer ) info );
 		}
 	}
 	
